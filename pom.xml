@@ -12,7 +12,7 @@
     <parent>
         <groupId>com.dlsc</groupId>
         <artifactId>dlsc-maven-parent</artifactId>
-        <version>1.0.0</version>
+        <version>1.6.0</version>
     </parent>
 
     <properties>
@@ -35,24 +35,6 @@
         <module>workbenchfx-core</module>
         <module>workbenchfx-demo</module>
     </modules>
-
-    <build>
-        <plugins>
-            <plugin>
-                <!-- the version inherited from the parent POM doesn't know about JDKs newer than 16 -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.4.1</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>extra-enforcer-rules</artifactId>
-                        <version>1.7.0</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencyManagement>
         <dependencies>
