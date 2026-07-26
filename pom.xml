@@ -16,16 +16,47 @@
     </parent>
 
     <properties>
-        <ikonli.version>12.2.0</ikonli.version>
         <java.version>21</java.version>
         <javafx.version>21.0.12</javafx.version>
-        <monocle.version>21.0.2</monocle.version>
+
+        <!-- Libraries -->
+        <calendarfx.version>11.12.7</calendarfx.version>
+        <controlsfx.version>11.2.3</controlsfx.version>
+        <gmapsfx.version>11.0.7</gmapsfx.version>
+        <guava.version>33.6.0-jre</guava.version>
+        <ikonli.version>12.4.0</ikonli.version>
+        <license4j.version>1.4.0</license4j.version>
+        <preferencesfx.version>11.19.0</preferencesfx.version>
+
+        <!-- Logging -->
+        <log4j.version>2.26.1</log4j.version>
+        <slf4j.version>2.0.18</slf4j.version>
+
+        <!-- Test -->
+        <assertj.version>3.27.7</assertj.version>
+        <awaitility.version>4.3.0</awaitility.version>
+        <bytebuddy.version>1.18.11</bytebuddy.version>
+        <hamcrest.version>3.0</hamcrest.version>
         <junit.version>4.13.2</junit.version>
-        <junit.jupiter.version>5.14.4</junit.jupiter.version>
-        <junit.vintage.version>5.14.4</junit.vintage.version>
-        <junit.platform.version>1.14.4</junit.platform.version>
-        <spock.version>2.4-groovy-4.0</spock.version>
+        <junit.jupiter.version>6.1.2</junit.jupiter.version>
+        <junit.vintage.version>6.1.2</junit.vintage.version>
+        <junit.platform.version>6.1.2</junit.platform.version>
+        <mockito.version>5.23.0</mockito.version>
+        <monocle.version>21.0.2</monocle.version>
+        <objenesis.version>3.5</objenesis.version>
+        <spock.version>2.4-groovy-5.0</spock.version>
         <testfx.version>4.0.18</testfx.version>
+
+        <!-- Build plugins -->
+        <asm.version>9.10.1</asm.version>
+        <build-helper-maven-plugin.version>3.6.1</build-helper-maven-plugin.version>
+        <gmavenplus-plugin.version>5.1.0</gmavenplus-plugin.version>
+        <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
+        <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
+        <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
+        <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
+        <maven-surefire-plugin.version>3.5.6</maven-surefire-plugin.version>
+
         <sonar.projectKey>dlsc-software-consulting-gmbh_WorkbenchFX</sonar.projectKey>
         <sonar.organization>dlsc-software-consulting-gmbh</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -63,6 +94,13 @@
             <dependency>
                 <groupId>org.kordamp.ikonli</groupId>
                 <artifactId>ikonli-materialdesign-pack</artifactId>
+                <version>${ikonli.version}</version>
+            </dependency>
+
+            <!-- Pulled in transitively by PreferencesFX; kept on the same Ikonli version as the rest -->
+            <dependency>
+                <groupId>org.kordamp.ikonli</groupId>
+                <artifactId>ikonli-material-pack</artifactId>
                 <version>${ikonli.version}</version>
             </dependency>
 
@@ -111,18 +149,18 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>31.0.1-jre</version>
+                <version>${guava.version}</version>
             </dependency>
 
             <!-- Logging -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.32</version>
+                <version>${slf4j.version}</version>
             </dependency>
 
             <!-- *** Test *** -->
-            <!-- JUnit 5 Testing Framework -->
+            <!-- JUnit 6 Testing Framework -->
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-api</artifactId>
@@ -151,10 +189,10 @@
             <dependency>
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest</artifactId>
-                <version>2.2</version>
+                <version>${hamcrest.version}</version>
             </dependency>
 
-            <!-- JUnit 4 Engine for JUnit 5, is needed for Spock to work -->
+            <!-- JUnit 4 Engine for JUnit 6, is needed for Spock to work -->
             <dependency>
                 <groupId>org.junit.vintage</groupId>
                 <artifactId>junit-vintage-engine</artifactId>
@@ -171,13 +209,13 @@
             <dependency> <!-- enables mocking of classes (in addition to interfaces) -->
                 <groupId>net.bytebuddy</groupId>
                 <artifactId>byte-buddy</artifactId>
-                <version>1.18.11</version>
+                <version>${bytebuddy.version}</version>
             </dependency>
 
             <dependency> <!-- enables mocking of classes without default constructor (together with CGLIB) -->
                 <groupId>org.objenesis</groupId>
                 <artifactId>objenesis</artifactId>
-                <version>3.2</version>
+                <version>${objenesis.version}</version>
             </dependency>
 
             <!-- TestFX for JavaFX Testing -->
@@ -209,75 +247,75 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>5.23.0</version>
+                <version>${mockito.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
-                <version>3.21.0</version>
+                <version>${assertj.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.awaitility</groupId>
                 <artifactId>awaitility</artifactId>
-                <version>4.1.1</version>
+                <version>${awaitility.version}</version>
             </dependency>
 
             <!-- Logging -->
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-core</artifactId>
-                <version>2.17.1</version>
+                <version>${log4j.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-api</artifactId>
-                <version>2.17.1</version>
+                <version>${log4j.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-slf4j-impl</artifactId>
-                <version>2.17.1</version>
+                <artifactId>log4j-slf4j2-impl</artifactId>
+                <version>${log4j.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.license4j</groupId>
                 <artifactId>license4j</artifactId>
-                <version>1.4.0</version>
+                <version>${license4j.version}</version>
             </dependency>
 
             <!-- Libraries -->
             <dependency>
                 <groupId>com.dlsc.workbenchfx</groupId>
                 <artifactId>workbenchfx-core</artifactId>
-                <version>21.0.0</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.dlsc</groupId>
                 <artifactId>GMapsFX</artifactId>
-                <version>11.0.6</version>
+                <version>${gmapsfx.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.calendarfx</groupId>
                 <artifactId>view</artifactId>
-                <version>11.8.3</version>
+                <version>${calendarfx.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.dlsc.preferencesfx</groupId>
                 <artifactId>preferencesfx-core</artifactId>
-                <version>11.9.0</version>
+                <version>${preferencesfx.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.controlsfx</groupId>
                 <artifactId>controlsfx</artifactId>
-                <version>11.1.1</version>
+                <version>${controlsfx.version}</version>
             </dependency>
         </dependencies>
 

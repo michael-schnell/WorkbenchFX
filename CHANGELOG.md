@@ -8,16 +8,29 @@
 - Java 21 is now the minimum requirement, raised from Java 11. The artifact version follows the
   supported Java release, so this line continues as `21.x` instead of `11.x`.
 - Update JavaFX from 17.0.1 to 21.0.12
+- Update SLF4J from 1.7.32 to 2.0.18. The 1.7 and 2.x bindings are not interchangeable, so
+  applications that supply their own binding have to switch to an SLF4J 2.x one — for Log4j that
+  means replacing `log4j-slf4j-impl` with `log4j-slf4j2-impl`, as the demo now does.
 
 **Implemented enhancements:**
 
 - Update Monocle to 21.0.2 to match the JavaFX version used by the headless tests
-- Resolve the JavaFX dependencies through the existing `javafx.version` property instead of
-  repeating a hardcoded version in every dependency entry
-- Update the test stack so it can read Java 21 class files: Spock 2.4 on Groovy 4.0.29,
-  JUnit 5.14.4 / Platform 1.14.4, TestFX 4.0.18, Mockito 5.23.0, Byte Buddy 1.18.11,
-  GMavenPlus 4.3.1 and Surefire 3.5.3
+- Update the test stack so it can read Java 21 class files: Spock 2.4 on Groovy 5.0,
+  JUnit 6.1.2 (Jupiter, Vintage and Platform), TestFX 4.0.18, Mockito 5.23.0,
+  Byte Buddy 1.18.11, Hamcrest 3.0, Objenesis 3.5, AssertJ 3.27.7, Awaitility 4.3.0,
+  GMavenPlus 5.1.0 and Surefire 3.5.6
+- Update the remaining libraries to their latest versions compatible with the JavaFX 21 baseline:
+  Guava 33.6.0-jre, Log4j 2.26.1, Ikonli 12.4.0, ControlsFX 11.2.3, PreferencesFX 11.19.0,
+  CalendarFX 11.12.7, GMapsFX 11.0.7 and CSSFX 11.5.1
+- Update the build plugins: Compiler 3.15.0, Source 3.4.0, Javadoc 3.12.0, Surefire 3.5.6,
+  JaCoCo 0.8.15, Exec 3.6.3 and Build Helper 3.6.1. The Javadoc plugin no longer overrides ASM
+  with 8.0.1, a version that predates and cannot read Java 21 class files, but uses 9.10.1.
+- Declare every dependency and plugin version through a property. The properties live in the
+  parent POM, except for the ones only the demo uses, which live in `workbenchfx-demo/pom.xml`.
+- Update `dlsc-maven-parent` to 1.6.0 and the Maven wrapper to 3.9.11
+- Run the JavaFX tests headless on Monocle
 - Build and release on JDK 21 in the GitHub Actions workflows
+- Document the demo applications and how to run them in `workbenchfx-demo/README.md`
 
 **Fixed bugs:**
 
@@ -25,6 +38,12 @@
   `WorkbenchModule.getIcon()`, which silently had no effect, so every mock module was named `""`
   during the tests. The name is now passed to the real constructor, and the two dead stubs are
   gone. Spock 2.4 rejects such stubs instead of ignoring them, which is how this surfaced.
+- `SelectionStripSpec` checked `instanceof Callback<SelectionStrip, StripCell<WorkbenchModule>>`.
+  The type arguments were erased at runtime and never took part in the check; Groovy 5 rejects
+  such an expression outright instead of accepting it, so the assertion now names the raw type.
+- Manage `ikonli-material-pack` alongside the other Ikonli artifacts. PreferencesFX pulls it in
+  transitively at an older version than the one the rest of the Ikonli dependencies resolve to,
+  which broke the `requireUpperBoundDeps` enforcer rule in the demo.
 
 **Known issues:**
 
@@ -35,9 +54,9 @@
   calls them. The last release with a working implementation is JavaFX 21.0.2, and the newest
   JavaFX line is affected as well, so upgrading is not a way out. In the demos this shows up when
   opening the *JFX-Central* module. See `workbenchfx-demo/README.md` for details.
-- Update `dlsc-maven-parent` to 1.6.0 and the Maven wrapper to 3.9.11
-- Run the JavaFX tests headless on Monocle
-- Document the demo applications and how to run them in `workbenchfx-demo/README.md`
+- JavaFX stays on the 21 line even though newer releases exist, because Monocle — which the
+  headless tests run on — has no release beyond 21.0.2. CalendarFX is held at 11.12.7 for the
+  same reason: 12.x requires JavaFX 23 or newer.
 
 ## [11.0.2](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/tree/11.0.2) (2019-09-08)
 [Full Changelog](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/compare/8.0.2...11.0.2)

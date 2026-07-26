@@ -15,6 +15,10 @@
 
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
+
+        <!-- Only used by the demo -->
+        <cssfx.version>11.5.1</cssfx.version>
+        <exec-maven-plugin.version>3.6.3</exec-maven-plugin.version>
     </properties>
 
     <build>
@@ -22,7 +26,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>${maven-source-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -36,7 +40,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <release>${java.version}</release>
                     <source>${java.version}</source>
@@ -47,7 +51,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>${exec-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>custom-demo</id>
@@ -107,7 +111,7 @@
         <dependency>
             <groupId>fr.brouillard.oss</groupId>
             <artifactId>cssfx</artifactId>
-            <version>11.4.0</version>
+            <version>${cssfx.version}</version>
         </dependency>
 
         <dependency>
@@ -133,7 +137,7 @@
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
+            <artifactId>log4j-slf4j2-impl</artifactId>
         </dependency>
 
         <!-- Libraries -->
