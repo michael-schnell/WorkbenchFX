@@ -31,6 +31,15 @@ To use this framework as part of your Maven build simply add the following depen
 </dependency>
 ```
 
+### Java 17
+```XML
+<dependency>
+  <groupId>com.dlsc.workbenchfx</groupId>
+  <artifactId>workbenchfx-core</artifactId>
+  <version>17.0.0</version>
+</dependency>
+```
+
 ## Gradle
 
 To use this framework as part of your gradle build simply add the following to your build.gradle file and use the following dependency definition:
@@ -46,6 +55,13 @@ dependencies {
 ```groovy
 dependencies {
     compile group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '11.1.0'
+}
+```
+
+### Java 17
+```groovy
+dependencies {
+    implementation group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '17.0.0'
 }
 ```
 
@@ -207,14 +223,9 @@ Note:
 - The full documentation about the module lifecycle can be found in the documentation file `workbenchfx-demo/src/main/resources/com/dlsc/workbenchfx/modules/webview/index.html`, in the section *WorkbenchModule Lifecycle*
 
 # Demos
-We created several demos to visualize the capabilities of *WorkbenchFX* in the `workbenchfx-demo` folder:
+We created several demos to visualize the capabilities of *WorkbenchFX* in the `workbenchfx-demo` folder.
 
-File                | Description
-------------------- | -----------
-`SimpleDemo.java`   | Shows the simplest usage of *WorkbenchFX* with only three modules and no optional features used
-`ExtendedDemo.java` | Shows a simple workbench application with most of the features used in a simple way.
-`CustomDemo.java`   | A workbench application which uses all features, to demonstrate the full capability of *WorkbenchFX*
-`FXMLDemo.java`     | A minimal example of how to use *WorkbenchFX* with FXML & [Scene Builder](https://gluonhq.com/products/scene-builder/)
+See [workbenchfx-demo/README.md](workbenchfx-demo/README.md) for an overview of the available demos and how to run them.
 
 # Getting started
 ## Extending the WorkbenchModule

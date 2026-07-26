@@ -1,5 +1,19 @@
 # Change Log
 
+## [17.0.0](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/tree/17.0.0) (2026-07-26)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/compare/11.3.1...17.0.0)
+
+**Breaking changes:**
+
+- Java 17 is now the minimum requirement, raised from Java 11. The artifact version follows the
+  supported Java release, so this line continues as `17.x` instead of `11.x`.
+
+**Implemented enhancements:**
+
+- Update `dlsc-maven-parent` to 1.6.0 and the Maven wrapper to 3.9.11
+- Run the JavaFX tests headless on Monocle
+- Document the demo applications and how to run them in `workbenchfx-demo/README.md`
+
 ## [11.0.2](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/tree/11.0.2) (2019-09-08)
 [Full Changelog](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/compare/8.0.2...11.0.2)
 
