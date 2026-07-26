@@ -6,7 +6,7 @@
 
     <groupId>com.dlsc.workbenchfx</groupId>
     <artifactId>workbenchfx-parent</artifactId>
-    <version>21.0.0</version>
+    <version>25.0.0</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -16,11 +16,11 @@
     </parent>
 
     <properties>
-        <java.version>21</java.version>
-        <javafx.version>21.0.12</javafx.version>
+        <java.version>25</java.version>
+        <javafx.version>26.0.2</javafx.version>
 
         <!-- Libraries -->
-        <calendarfx.version>11.12.7</calendarfx.version>
+        <calendarfx.version>12.1.0</calendarfx.version>
         <controlsfx.version>11.2.3</controlsfx.version>
         <gmapsfx.version>11.0.7</gmapsfx.version>
         <guava.version>33.6.0-jre</guava.version>
@@ -29,6 +29,7 @@
         <preferencesfx.version>11.19.0</preferencesfx.version>
 
         <!-- Logging -->
+        <commons-logging.version>1.3.6</commons-logging.version>
         <log4j.version>2.26.1</log4j.version>
         <slf4j.version>2.0.18</slf4j.version>
 
@@ -42,7 +43,6 @@
         <junit.vintage.version>6.1.2</junit.vintage.version>
         <junit.platform.version>6.1.2</junit.platform.version>
         <mockito.version>5.23.0</mockito.version>
-        <monocle.version>21.0.2</monocle.version>
         <objenesis.version>3.5</objenesis.version>
         <spock.version>2.4-groovy-5.0</spock.version>
         <testfx.version>4.0.18</testfx.version>
@@ -225,13 +225,6 @@
                 <version>${testfx.version}</version>
             </dependency>
 
-            <!-- Monocle: headless JavaFX platform, so tests don't open windows on the desktop -->
-            <dependency>
-                <groupId>org.testfx</groupId>
-                <artifactId>openjfx-monocle</artifactId>
-                <version>${monocle.version}</version>
-            </dependency>
-
             <dependency>
                 <groupId>org.testfx</groupId>
                 <artifactId>testfx-junit5</artifactId>
@@ -279,6 +272,17 @@
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-slf4j2-impl</artifactId>
                 <version>${log4j.version}</version>
+            </dependency>
+
+            <!--
+              CalendarFX pulls this in three times at three different versions, through its own
+              dependency and through the commons-validator / commons-beanutils chain. Managed here
+              so the versions converge.
+            -->
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${commons-logging.version}</version>
             </dependency>
 
             <dependency>

@@ -9,7 +9,7 @@
     <parent>
         <groupId>com.dlsc.workbenchfx</groupId>
         <artifactId>workbenchfx-parent</artifactId>
-        <version>21.0.0</version>
+        <version>25.0.0</version>
     </parent>
 
     <artifactId>workbenchfx-core</artifactId>
@@ -179,15 +179,21 @@
                     </includes>
                     <forkCount>0</forkCount>
                     <!--
-                      Run the JavaFX tests headless on the Monocle platform: no windows are opened on
-                      the desktop and the TestFX robot delivers its events to the JavaFX window
-                      instead of to whichever window currently owns the focus of the desktop.
+                      Run the JavaFX tests on the headless Glass platform that JavaFX ships since
+                      version 26: no windows are opened on the desktop and the TestFX robot delivers
+                      its events to the JavaFX window instead of to whichever window currently owns
+                      the focus of the desktop.
+
+                      Note that `testfx.headless` is deliberately not set. That flag makes TestFX
+                      load the Monocle platform factory, which would bring back the dependency on
+                      org.testfx:openjfx-monocle that this configuration replaces.
+
+                      These have to stay system properties rather than move into `argLine`, because
+                      `forkCount` is 0 above and Surefire ignores `argLine` when it does not fork.
                     -->
                     <systemPropertyVariables>
                         <testfx.robot>glass</testfx.robot>
-                        <testfx.headless>true</testfx.headless>
-                        <glass.platform>Monocle</glass.platform>
-                        <monocle.platform>Headless</monocle.platform>
+                        <glass.platform>Headless</glass.platform>
                         <prism.order>sw</prism.order>
                         <java.awt.headless>true</java.awt.headless>
                     </systemPropertyVariables>
@@ -334,12 +340,6 @@
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-spock</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency> <!-- headless JavaFX platform, see surefire configuration -->
-            <groupId>org.testfx</groupId>
-            <artifactId>openjfx-monocle</artifactId>
             <scope>test</scope>
         </dependency>
 

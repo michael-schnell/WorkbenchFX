@@ -1,5 +1,46 @@
 # Change Log
 
+## [25.0.0](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/tree/25.0.0) (2026-07-26)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/compare/21.0.0...25.0.0)
+
+**Breaking changes:**
+
+- Java 25 is now the minimum requirement, raised from Java 21. The artifact version follows the
+  supported Java release, so this line continues as `25.x` instead of `21.x`.
+- Update JavaFX from 21.0.12 to 26.0.2
+
+**Implemented enhancements:**
+
+- Drop the `org.testfx:openjfx-monocle` test dependency. Since version 26 JavaFX ships its own
+  headless Glass platform, so the headless test setup no longer needs a third-party one. The
+  Surefire configuration now selects it with `-Dglass.platform=Headless` instead of
+  `-Dglass.platform=Monocle -Dmonocle.platform=Headless`. This also unpins JavaFX, which could
+  not move past the 21 line while Monocle was needed — its last release is 21.0.2.
+- Update CalendarFX from 11.12.7 to 12.1.0, which requires JavaFX 23 or newer and was therefore
+  out of reach before
+- Build and release on JDK 25 in the GitHub Actions workflows
+- Document both supported lines in `README.md`, with a table mapping the WorkbenchFX version to
+  the Java and JavaFX versions it needs
+
+**Fixed bugs:**
+
+- Manage `commons-logging`, which CalendarFX 12.1.0 pulls in at three different versions through
+  its own dependency and through the `commons-validator` / `commons-beanutils` chain. This broke
+  the `DependencyConvergence` enforcer rule in the demo.
+
+**Known issues:**
+
+- The WebView WebSocket `UnsatisfiedLinkError` reported for 21.0.0 is still present. JavaFX 26
+  declares `twkDidOpen`, `twkDidReceiveData`, `twkDidFail` and `twkDidClose` as native methods on
+  `com.sun.webkit.network.SocketStreamHandle`, but the bundled `libjfxwebkit` implements none of
+  them. Moving to a newer JavaFX therefore does not fix it. See the 21.0.0 entry below and
+  `workbenchfx-demo/README.md` for details.
+- `testfx.headless=true` must not be set. TestFX 4.0.18 implements that flag by loading the
+  Monocle platform factory, so setting it fails with a `ClassNotFoundException` on the headless
+  JavaFX platform. Headlessness comes from `glass.platform` instead.
+- The Surefire flags have to stay in `systemPropertyVariables` and cannot move into `argLine`,
+  because `forkCount` is `0` and Surefire ignores `argLine` when it does not fork.
+
 ## [21.0.0](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/tree/21.0.0) (2026-07-26)
 [Full Changelog](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/compare/11.3.1...21.0.0)
 

@@ -9,11 +9,32 @@
 
 ![screenshot of an application created with WorkbenchFX](docs/images/workbenchFX_in_use.png) 
 
+## Versions
+
+The version of *WorkbenchFX* follows the Java release it is built for. Pick the line that matches
+the Java version of your application:
+
+| WorkbenchFX | Requires Java | Built against JavaFX |
+| --- | --- | --- |
+| `25.0.0` | 25 or later | 26 |
+| `21.0.0` | 21 or later | 21 |
+
 ## Maven
 
 To use this framework as part of your Maven build simply add the following dependency to your pom.xml file:
 
+### Java 25
+
+```XML
+<dependency>
+  <groupId>com.dlsc.workbenchfx</groupId>
+  <artifactId>workbenchfx-core</artifactId>
+  <version>25.0.0</version>
+</dependency>
+```
+
 ### Java 21
+
 ```XML
 <dependency>
   <groupId>com.dlsc.workbenchfx</groupId>
@@ -26,7 +47,16 @@ To use this framework as part of your Maven build simply add the following depen
 
 To use this framework as part of your gradle build simply add the following to your build.gradle file and use the following dependency definition:
 
+### Java 25
+
+```groovy
+dependencies {
+    implementation group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '25.0.0'
+}
+```
+
 ### Java 21
+
 ```groovy
 dependencies {
     implementation group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '21.0.0'
