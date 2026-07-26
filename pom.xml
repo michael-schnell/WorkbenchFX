@@ -17,8 +17,9 @@
 
     <properties>
         <ikonli.version>12.2.0</ikonli.version>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <javafx.version>17.0.1</javafx.version>
+        <monocle.version>17.0.10</monocle.version>
         <junit.version>4.13.2</junit.version>
         <junit.jupiter.version>5.8.2</junit.jupiter.version>
         <junit.vintage.version>5.8.2</junit.vintage.version>
@@ -34,6 +35,24 @@
         <module>workbenchfx-core</module>
         <module>workbenchfx-demo</module>
     </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- the version inherited from the parent POM doesn't know about JDKs newer than 16 -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.4.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>extra-enforcer-rules</artifactId>
+                        <version>1.7.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencyManagement>
         <dependencies>
@@ -181,6 +200,13 @@
                 <groupId>org.testfx</groupId>
                 <artifactId>testfx-core</artifactId>
                 <version>4.0.16-alpha</version>
+            </dependency>
+
+            <!-- Monocle: headless JavaFX platform, so tests don't open windows on the desktop -->
+            <dependency>
+                <groupId>org.testfx</groupId>
+                <artifactId>openjfx-monocle</artifactId>
+                <version>${monocle.version}</version>
             </dependency>
 
             <dependency>

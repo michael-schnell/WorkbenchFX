@@ -178,6 +178,19 @@
                         <include>**/*Test.java</include>
                     </includes>
                     <forkCount>0</forkCount>
+                    <!--
+                      Run the JavaFX tests headless on the Monocle platform: no windows are opened on
+                      the desktop and the TestFX robot delivers its events to the JavaFX window
+                      instead of to whichever window currently owns the focus of the desktop.
+                    -->
+                    <systemPropertyVariables>
+                        <testfx.robot>glass</testfx.robot>
+                        <testfx.headless>true</testfx.headless>
+                        <glass.platform>Monocle</glass.platform>
+                        <monocle.platform>Headless</monocle.platform>
+                        <prism.order>sw</prism.order>
+                        <java.awt.headless>true</java.awt.headless>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
 
@@ -321,6 +334,12 @@
         <dependency>
             <groupId>org.testfx</groupId>
             <artifactId>testfx-spock</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency> <!-- headless JavaFX platform, see surefire configuration -->
+            <groupId>org.testfx</groupId>
+            <artifactId>openjfx-monocle</artifactId>
             <scope>test</scope>
         </dependency>
 
