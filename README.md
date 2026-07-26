@@ -13,30 +13,12 @@
 
 To use this framework as part of your Maven build simply add the following dependency to your pom.xml file:
 
-### Java 8
+### Java 21
 ```XML
 <dependency>
   <groupId>com.dlsc.workbenchfx</groupId>
   <artifactId>workbenchfx-core</artifactId>
-  <version>8.1.0</version>
-</dependency>
-```
-
-### Java 11
-```XML
-<dependency>
-  <groupId>com.dlsc.workbenchfx</groupId>
-  <artifactId>workbenchfx-core</artifactId>
-  <version>11.1.0</version>
-</dependency>
-```
-
-### Java 17
-```XML
-<dependency>
-  <groupId>com.dlsc.workbenchfx</groupId>
-  <artifactId>workbenchfx-core</artifactId>
-  <version>17.0.0</version>
+  <version>21.0.0</version>
 </dependency>
 ```
 
@@ -44,24 +26,10 @@ To use this framework as part of your Maven build simply add the following depen
 
 To use this framework as part of your gradle build simply add the following to your build.gradle file and use the following dependency definition:
 
-### Java 8
+### Java 21
 ```groovy
 dependencies {
-    compile group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '8.1.0'
-}
-```
-
-### Java 11
-```groovy
-dependencies {
-    compile group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '11.1.0'
-}
-```
-
-### Java 17
-```groovy
-dependencies {
-    implementation group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '17.0.0'
+    implementation group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '21.0.0'
 }
 ```
 

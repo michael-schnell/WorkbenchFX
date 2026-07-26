@@ -1,15 +1,33 @@
 # Change Log
 
-## [17.0.0](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/tree/17.0.0) (2026-07-26)
-[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/compare/11.3.1...17.0.0)
+## [21.0.0](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/tree/21.0.0) (2026-07-26)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/WorkbenchFX/compare/11.3.1...21.0.0)
 
 **Breaking changes:**
 
-- Java 17 is now the minimum requirement, raised from Java 11. The artifact version follows the
-  supported Java release, so this line continues as `17.x` instead of `11.x`.
+- Java 21 is now the minimum requirement, raised from Java 11. The artifact version follows the
+  supported Java release, so this line continues as `21.x` instead of `11.x`.
+- Update JavaFX from 17.0.1 to 21.0.12
 
 **Implemented enhancements:**
 
+- Update Monocle to 21.0.2 to match the JavaFX version used by the headless tests
+- Resolve the JavaFX dependencies through the existing `javafx.version` property instead of
+  repeating a hardcoded version in every dependency entry
+- Update the test stack so it can read Java 21 class files: Spock 2.3 on Groovy 4.0.32,
+  JUnit 5.14.4 / Platform 1.14.4, TestFX 4.0.18, Mockito 5.23.0, Byte Buddy 1.18.11,
+  GMavenPlus 4.3.1 and Surefire 3.5.3
+- Build and release on JDK 21 in the GitHub Actions workflows
+
+**Known issues:**
+
+- WebView pages that open a WebSocket fail with
+  `UnsatisfiedLinkError: 'void com.sun.webkit.network.SocketStreamHandle.twkDidOpen(long)'`.
+  This is an upstream JavaFX problem: since 21.0.3 the bundled `libjfxwebkit` no longer
+  implements the `SocketStreamHandle` native methods, although the Java class still declares and
+  calls them. The last release with a working implementation is JavaFX 21.0.2, and the newest
+  JavaFX line is affected as well, so upgrading is not a way out. In the demos this shows up when
+  opening the *JFX-Central* module. See `workbenchfx-demo/README.md` for details.
 - Update `dlsc-maven-parent` to 1.6.0 and the Maven wrapper to 3.9.11
 - Run the JavaFX tests headless on Monocle
 - Document the demo applications and how to run them in `workbenchfx-demo/README.md`

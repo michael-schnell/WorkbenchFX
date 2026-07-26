@@ -25,7 +25,7 @@ project:
   license: Apache-2.0
   languages:
     java:
-      version: 17
+      version: 21
       groupId: com.dlsc.workbenchfx
       artifactId: workbenchfx-core
   extraProperties:

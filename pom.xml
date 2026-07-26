@@ -6,7 +6,7 @@
 
     <groupId>com.dlsc.workbenchfx</groupId>
     <artifactId>workbenchfx-parent</artifactId>
-    <version>17.0.0</version>
+    <version>21.0.0</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -17,12 +17,17 @@
 
     <properties>
         <ikonli.version>12.2.0</ikonli.version>
-        <java.version>17</java.version>
-        <javafx.version>17.0.1</javafx.version>
-        <monocle.version>17.0.10</monocle.version>
+        <java.version>21</java.version>
+        <javafx.version>21.0.12</javafx.version>
+        <monocle.version>21.0.2</monocle.version>
         <junit.version>4.13.2</junit.version>
-        <junit.jupiter.version>5.8.2</junit.jupiter.version>
-        <junit.vintage.version>5.8.2</junit.vintage.version>
+        <junit.jupiter.version>5.14.4</junit.jupiter.version>
+        <junit.vintage.version>5.14.4</junit.vintage.version>
+        <junit.platform.version>1.14.4</junit.platform.version>
+        <spock.version>2.3-groovy-4.0</spock.version>
+        <!-- Spock 2.3 pins Groovy 4.0.4, which cannot read Java 21 class files -->
+        <groovy.version>4.0.32</groovy.version>
+        <testfx.version>4.0.18</testfx.version>
         <sonar.projectKey>dlsc-software-consulting-gmbh_WorkbenchFX</sonar.projectKey>
         <sonar.organization>dlsc-software-consulting-gmbh</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -66,43 +71,43 @@
             <dependency>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-base</artifactId>
-                <version>17.0.1</version>
+                <version>${javafx.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-web</artifactId>
-                <version>17.0.1</version>
+                <version>${javafx.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-swing</artifactId>
-                <version>17.0.1</version>
+                <version>${javafx.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-controls</artifactId>
-                <version>17.0.1</version>
+                <version>${javafx.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-fxml</artifactId>
-                <version>17.0.1</version>
+                <version>${javafx.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-graphics</artifactId>
-                <version>17.0.1</version>
+                <version>${javafx.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-media</artifactId>
-                <version>17.0.1</version>
+                <version>${javafx.version}</version>
             </dependency>
 
             <dependency>
@@ -135,7 +140,7 @@
             <dependency>
                 <groupId>org.junit.platform</groupId>
                 <artifactId>junit-platform-engine</artifactId>
-                <version>1.8.2</version>
+                <version>${junit.platform.version}</version>
                 <scope>test</scope>
             </dependency>
 
@@ -162,13 +167,19 @@
             <dependency>
                 <groupId>org.spockframework</groupId>
                 <artifactId>spock-core</artifactId>
-                <version>2.0-groovy-3.0</version>
+                <version>${spock.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.groovy</groupId>
+                <artifactId>groovy</artifactId>
+                <version>${groovy.version}</version>
             </dependency>
 
             <dependency> <!-- enables mocking of classes (in addition to interfaces) -->
                 <groupId>net.bytebuddy</groupId>
                 <artifactId>byte-buddy</artifactId>
-                <version>1.12.4</version>
+                <version>1.18.11</version>
             </dependency>
 
             <dependency> <!-- enables mocking of classes without default constructor (together with CGLIB) -->
@@ -181,7 +192,7 @@
             <dependency>
                 <groupId>org.testfx</groupId>
                 <artifactId>testfx-core</artifactId>
-                <version>4.0.16-alpha</version>
+                <version>${testfx.version}</version>
             </dependency>
 
             <!-- Monocle: headless JavaFX platform, so tests don't open windows on the desktop -->
@@ -194,19 +205,19 @@
             <dependency>
                 <groupId>org.testfx</groupId>
                 <artifactId>testfx-junit5</artifactId>
-                <version>4.0.16-alpha</version>
+                <version>${testfx.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.testfx</groupId>
                 <artifactId>testfx-spock</artifactId>
-                <version>4.0.16-alpha</version>
+                <version>${testfx.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>4.2.0</version>
+                <version>5.23.0</version>
             </dependency>
 
             <dependency>
@@ -250,7 +261,7 @@
             <dependency>
                 <groupId>com.dlsc.workbenchfx</groupId>
                 <artifactId>workbenchfx-core</artifactId>
-                <version>17.0.0</version>
+                <version>21.0.0</version>
             </dependency>
 
             <dependency>

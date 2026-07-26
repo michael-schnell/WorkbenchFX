@@ -6,7 +6,7 @@ straight from Maven.
 
 ## Prerequisites
 
-* JDK 17 (the parent POM sets `java.version` to 17)
+* JDK 21 (the parent POM sets `java.version` to 21)
 * A desktop/display — these are GUI applications and will not start headless
 * No separate JavaFX SDK needed; the OpenJFX artifacts come in as Maven dependencies
 
@@ -30,8 +30,8 @@ Once `workbenchfx-core` is in your local repository, changes confined to this mo
 > **Note:** the `install` step is required because the demo is launched in a separate Maven
 > invocation whose reactor contains only this module, so `workbenchfx-core` is resolved as an
 > external artifact from `~/.m2`. A `verify` build stops at `target/` and publishes nothing there.
-> The current version `17.0.0` is not on Maven Central yet, so skipping `install` fails outright
-> with `com.dlsc.workbenchfx:workbenchfx-core:jar:17.0.0 (absent)` rather than silently using a
+> The current version `21.0.0` is not on Maven Central yet, so skipping `install` fails outright
+> with `com.dlsc.workbenchfx:workbenchfx-core:jar:21.0.0 (absent)` rather than silently using a
 > stale jar.
 
 > **Note:** do not add `-am`. Maven applies a command-line goal to every module in the reactor
@@ -60,6 +60,42 @@ For example, to run the FXML demo:
 
 Each demo class has a `main` method, so you can also just run it directly from your IDE
 after importing the root `pom.xml` as a Maven project.
+
+## Known issues
+
+### WebView modules that open a WebSocket fail on JavaFX 21.0.3 and later
+
+Opening the *JFX-Central* module (`SimpleDemo`, `ExtendedDemo`, `CustomDemo`) throws:
+
+```
+java.lang.UnsatisfiedLinkError: 'void com.sun.webkit.network.SocketStreamHandle.twkDidOpen(long)'
+```
+
+`https://jfx-central.com` is a Vaadin application and therefore opens a WebSocket, which is
+what triggers this. Any WebView page using WebSockets is affected.
+
+This is an upstream JavaFX problem, not a WorkbenchFX one. From JavaFX 21.0.3 onwards the
+bundled `libjfxwebkit.so` no longer implements the `SocketStreamHandle` native methods, while
+`com.sun.webkit.network.SocketStreamHandle` still declares and calls them. Counting the
+`Java_com_sun_webkit_network_SocketStreamHandle_twk*` symbols exported by the native library:
+
+| `javafx-web` | Exported symbols | WebView WebSockets |
+|--------------|------------------|--------------------|
+| 17.0.1       | 4                | work               |
+| 21.0.1       | 4                | work               |
+| 21.0.2       | 4                | work — last good release in the 21 line |
+| 21.0.3 … 21.0.12 | 0            | broken             |
+| 26.0.2       | 0                | broken             |
+
+Since the problem is still present in the newest JavaFX line, upgrading does not help. If you
+need WebSockets in a WebView, build against JavaFX 21.0.2:
+
+```bash
+./mvnw -pl workbenchfx-demo compile exec:java@simple-demo -Djavafx.version=21.0.2
+```
+
+Note that 21.0.2 predates the WebKit fixes shipped in later patch releases, so this is a
+workaround for local experimentation rather than a recommendation for production.
 
 ## Source layout
 
