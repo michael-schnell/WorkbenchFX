@@ -14,10 +14,17 @@
 - Update Monocle to 21.0.2 to match the JavaFX version used by the headless tests
 - Resolve the JavaFX dependencies through the existing `javafx.version` property instead of
   repeating a hardcoded version in every dependency entry
-- Update the test stack so it can read Java 21 class files: Spock 2.3 on Groovy 4.0.32,
+- Update the test stack so it can read Java 21 class files: Spock 2.4 on Groovy 4.0.29,
   JUnit 5.14.4 / Platform 1.14.4, TestFX 4.0.18, Mockito 5.23.0, Byte Buddy 1.18.11,
   GMavenPlus 4.3.1 and Surefire 3.5.3
 - Build and release on JDK 21 in the GitHub Actions workflows
+
+**Fixed bugs:**
+
+- `WorkbenchSpec` stubbed the final methods `WorkbenchModule.getName()` and
+  `WorkbenchModule.getIcon()`, which silently had no effect, so every mock module was named `""`
+  during the tests. The name is now passed to the real constructor, and the two dead stubs are
+  gone. Spock 2.4 rejects such stubs instead of ignoring them, which is how this surfaced.
 
 **Known issues:**
 

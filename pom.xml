@@ -24,9 +24,7 @@
         <junit.jupiter.version>5.14.4</junit.jupiter.version>
         <junit.vintage.version>5.14.4</junit.vintage.version>
         <junit.platform.version>1.14.4</junit.platform.version>
-        <spock.version>2.3-groovy-4.0</spock.version>
-        <!-- Spock 2.3 pins Groovy 4.0.4, which cannot read Java 21 class files -->
-        <groovy.version>4.0.32</groovy.version>
+        <spock.version>2.4-groovy-4.0</spock.version>
         <testfx.version>4.0.18</testfx.version>
         <sonar.projectKey>dlsc-software-consulting-gmbh_WorkbenchFX</sonar.projectKey>
         <sonar.organization>dlsc-software-consulting-gmbh</sonar.organization>
@@ -168,12 +166,6 @@
                 <groupId>org.spockframework</groupId>
                 <artifactId>spock-core</artifactId>
                 <version>${spock.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.groovy</groupId>
-                <artifactId>groovy</artifactId>
-                <version>${groovy.version}</version>
             </dependency>
 
             <dependency> <!-- enables mocking of classes (in addition to interfaces) -->

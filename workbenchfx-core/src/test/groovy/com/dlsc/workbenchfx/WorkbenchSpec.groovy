@@ -97,7 +97,7 @@ class WorkbenchSpec extends ApplicationSpec {
         }
 
         for (int i = 0; i < mockModules.length; i++) {
-            mockModules[i] = createMockModule(moduleNodes[i], null, true, "Module " + i)
+            mockModules[i] = createMockModule(moduleNodes[i], true, "Module " + i)
         }
 
         FontIcon FontIcon = new FontIcon(MaterialDesign.MDI_CALENDAR_QUESTION)
@@ -255,16 +255,16 @@ class WorkbenchSpec extends ApplicationSpec {
      *
      * @param displayNode node to be displayed in the mock
      * @param destroy what the call for {@link WorkbenchModule#destroy()} should return
-     * @param toString what {@link WorkbenchModule#toString()} should return
+     * @param name the name of the module, also returned by {@link WorkbenchModule#toString()}
      * @return the mock
      */
-    def createMockModule(Node displayNode, Node icon, boolean destroy, String toString) {
-        WorkbenchModule mockModule = Mock(WorkbenchModule.class)
-        mockModule.getName() >> toString
-        mockModule.getIcon() >> icon
+    def createMockModule(Node displayNode, boolean destroy, String name) {
+        // getName() and getIcon() are final and can therefore not be stubbed. The name is passed
+        // to the real constructor instead, which is where WorkbenchModule takes it from.
+        WorkbenchModule mockModule = Mock(constructorArgs: [name, (Image) null], WorkbenchModule)
         mockModule.activate() >> displayNode
         mockModule.destroy() >> destroy
-        mockModule.toString() >> toString
+        mockModule.toString() >> name
         return mockModule
     }
 
